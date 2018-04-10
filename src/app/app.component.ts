@@ -1,16 +1,26 @@
-import { Component } from '@angular/core';
-import { AngularFirestore } from 'angularfire2/firestore';
-import {Observable} from 'rxjs/Observable';
+import {Component, OnInit} from '@angular/core';
+import {FirebaseService} from './services/firebase.service';
+import {Business} from './interfaces/Business';
+import {Category} from './interfaces/Category';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  items: Observable<any[]>;
-  constructor(db: AngularFirestore) {
-    this.items = db.collection('items').valueChanges();
-    console.log(this.items);
+export class AppComponent implements OnInit {
+  businesses: Business[];
+  categories: Category[];
+  constructor(private firebaseService: FirebaseService) {
+
+  }
+
+  ngOnInit() {
+    this.firebaseService.getBusiness().subscribe(businesses =>
+      this.businesses = businesses );
+
+    this.firebaseService.getCategories().subscribe(categories =>
+      this.categories = categories );
   }
 }

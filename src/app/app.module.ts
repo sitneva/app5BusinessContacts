@@ -7,6 +7,8 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import {AngularFirestore} from 'angularfire2/firestore';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
 
 
 
@@ -18,6 +20,7 @@ import {AngularFirestore} from 'angularfire2/firestore';
     BrowserModule,
     FormsModule,
     HttpModule,
+    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [AngularFirestore],
