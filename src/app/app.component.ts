@@ -26,7 +26,7 @@ export class AppComponent implements OnInit {
       this.categories = categories );
   }
 
-  changeState(state, key) {
+  changeState(state, key = null) {
     console.log('Key: ' + JSON.stringify(key));
     if (key) {
       this.activeKey = key;
@@ -39,5 +39,36 @@ export class AppComponent implements OnInit {
   onFilterCategory(category) {
     this.firebaseService.getBusiness(category).subscribe(businesses =>
       this.businesses = businesses );
+  }
+
+  addBusiness(
+    company: string,
+    category: string,
+    years_in_business: number,
+    description: string,
+    phone: string,
+    email: string,
+    street_address: string,
+    city: string,
+    state: string,
+    zipcode: string) {
+    const created_at = new Date().toDateString();
+
+    const newBussines: Business = {
+      company: company,
+      category: category,
+      years_in_business: years_in_business,
+      description: description,
+      phone: phone,
+      email: email,
+      street_address: street_address,
+      city: city,
+      state: state,
+      zipcode: zipcode,
+      created_at: created_at
+    };
+
+    this.firebaseService.addBusiness(newBussines);
+    this.changeState('default');
   }
 }

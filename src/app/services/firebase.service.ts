@@ -36,4 +36,8 @@ export class FirebaseService {
     });
     return this.categories;
   }
+
+  addBusiness(newBusiness: Business) {
+    return this.buss.push(newBusiness);
+  }
 }

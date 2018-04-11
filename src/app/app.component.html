@@ -12,7 +12,7 @@
 <br>
 <div class="row">
   <div class="large-6 columns">
-    <button class="button">Add Business</button>
+    <button class="button" (click)="changeState('add')">Add Business</button>
   </div>
   <div class="large-6 columns">
     <label> Filter Category</label>
@@ -23,6 +23,94 @@
   </div>
 </div>
 
+<!--   Add -->
+<div *ngIf="appState == 'add'" class="row">
+  <div class="large-12 columns">
+    <h3>Add Business</h3>
+    <form (submit)="addBusiness(
+    company.value,
+    category.value,
+    years_in_business.value,
+    description.value,
+    phone.value,
+    email.value,
+    street_address.value,
+    city.value,
+    state.value,
+    zipcode.value)">
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>Company:</label>
+          <input type="text" placeholder="Company" #company>
+        </div>
+        <div class="medium-6 columns">
+          <label>Category:</label>
+          <input type="text" placeholder="Category" #category>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>Years In Business:</label>
+          <input type="text" placeholder="Years In Business" #years_in_business>
+        </div>
+        <div class="medium-6 columns">
+          <label>Description:</label>
+          <input type="text" placeholder="Description" #description>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>Phone:</label>
+          <input type="text" placeholder="Phone" #phone>
+        </div>
+        <div class="medium-6 columns">
+          <label>Email:</label>
+          <input type="text" placeholder="Email" #email>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>Street:</label>
+          <input type="text" placeholder="Street" #street_address>
+        </div>
+        <div class="medium-6 columns">
+          <label>City:</label>
+          <input type="text" placeholder="City" #city>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>Street:</label>
+          <input type="text" placeholder="Street" #street_address>
+        </div>
+        <div class="medium-6 columns">
+          <label>City:</label>
+          <input type="text" placeholder="City" #city>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-6 columns">
+          <label>State:</label>
+          <input type="text" placeholder="State" #state>
+        </div>
+        <div class="medium-6 columns">
+          <label>ZipCode:</label>
+          <input type="text" placeholder="ZipCode" #zipcode>
+        </div>
+      </div>
+      <div class="row">
+        <div class="medium-12 columns">
+          <button class="button" type="submit" value="Submit">Submit</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  Add
+</div>
+<!-- END  Add -->
+
+<!--   Extend -->
 <div *ngIf="appState == 'extend'">
   <div class="row">
     <div class="large-12 columns">
@@ -33,13 +121,13 @@
   <div *ngFor="let bussines of businesses" >
     <div *ngIf="bussines.$key == activeKey">
       <div class="row">
-        <div class="medium-5 columns large-offset-1">
+        <div class="large-5 columns large-offset-1">
           <h3>{{bussines.company}}</h3>
           <p>Category: {{bussines.category}}</p>
           <p>Years In Business: {{bussines.years_in_business}}</p>
           <p>{{bussines.description}}</p>
         </div>
-        <div class="medium-5 columns  large-offset-1">
+        <div class="large-5 columns  large-offset-1">
           <h4>Contact Info</h4>
           <p>Phone: {{bussines.phone}}</p>
           <p>Email: {{bussines.email}}</p>
@@ -53,6 +141,7 @@
   </div>
 
 </div>
+<!-- END  Extend -->
 
 <div class="row">
   <div class="large-12 columns">
