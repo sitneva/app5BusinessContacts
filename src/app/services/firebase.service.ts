@@ -16,8 +16,13 @@ export class FirebaseService {
 
   }
 
-  getBusiness() {
-    this.buss = this._af.list('/businesses');
+  getBusiness(category: string = null) {
+    if (category != null && category !== '0' ) {
+      this.buss = this._af.list('/businesses', ref => ref.orderByChild('category').equalTo(category));
+    } else {
+      this.buss = this._af.list('/businesses');
+    }
+
     this.businesses = this.buss.snapshotChanges().map(changes => {
       return changes.map(c => ({ $key: c.payload.key, ...c.payload.val() }));
     });

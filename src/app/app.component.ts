@@ -35,4 +35,9 @@ export class AppComponent implements OnInit {
     this.appState = state;
     console.log('appState:' + this.appState);
   }
+
+  onFilterCategory(category) {
+    this.firebaseService.getBusiness(category).subscribe(businesses =>
+      this.businesses = businesses );
+  }
 }
