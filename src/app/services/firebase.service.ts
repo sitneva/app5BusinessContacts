@@ -3,23 +3,32 @@ import {FirebaseListObservable} from 'angularfire2/database-deprecated';
 import {Business} from '../interfaces/Business';
 import {Category} from '../interfaces/Category';
 import {AngularFirestore} from 'angularfire2/firestore';
-import {AngularFireDatabase} from 'angularfire2/database';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import {Observable} from "rxjs/Observable";
 
 @Injectable()
 export class FirebaseService {
-  businesses: FirebaseListObservable<Business[]>;
-  categories: FirebaseListObservable<Category[]>;
+  buss: AngularFireList<any>;
+  cat: AngularFireList<any>;
+  businesses: Observable<Business[]>;
+  categories: Observable<Category[]>;
   constructor(private _af: AngularFireDatabase) {
 
   }
 
   getBusiness() {
-    this.businesses = this._af.list('/businesses').valueChanges() as FirebaseListObservable<Business[]>
+    this.buss = this._af.list('/businesses');
+    this.businesses = this.buss.snapshotChanges().map(changes => {
+      return changes.map(c => ({ $key: c.payload.key, ...c.payload.val() }));
+    });
     return this.businesses;
   }
 
   getCategories() {
-    this.categories = this._af.list('/categories').valueChanges() as FirebaseListObservable<Category[]>
+    this.cat = this._af.list('/categories');
+    this.categories = this.cat.snapshotChanges().map(changes => {
+      return changes.map(c => ({ $key: c.payload.key, ...c.payload.val() }));
+    });
     return this.categories;
   }
 }
