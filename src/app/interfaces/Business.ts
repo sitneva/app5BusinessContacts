@@ -10,5 +10,5 @@ export interface Business {
   zipcode?: string;
   phone?: string;
   email?: string;
-  created_at: string;
+  created_at?: string;
 }

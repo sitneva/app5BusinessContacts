@@ -4,7 +4,7 @@ import {Business} from '../interfaces/Business';
 import {Category} from '../interfaces/Category';
 import {AngularFirestore} from 'angularfire2/firestore';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class FirebaseService {
@@ -39,5 +39,13 @@ export class FirebaseService {
 
   addBusiness(newBusiness: Business) {
     return this.buss.push(newBusiness);
+  }
+
+  updateBusiness(key, updBusiness) {
+    return this.buss.update(key, updBusiness);
+  }
+
+  removeBusiness(key) {
+    return this.buss.remove(key);
   }
 }
